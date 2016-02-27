@@ -1,0 +1,117 @@
+#!/usr/bin/perl
+
+sub Debug($) {
+    my $arg = shift;
+    print STDERR "$arg\n" if (defined $ARGV{DEBUG});
+}
+
+# If preceded by ! return the negated string
+# If not, return ""
+sub is_negated($) {
+    my $tag = shift;
+    if ($tag =~ /^\!(\w+)$/) {
+	return $1;
+    } elsif ($tag =~ /^\w+$/) {
+	# normal, return "";
+    } else {
+	Debug "is_negated: unexpected tag $tag";
+    }
+    return "";
+}
+
+sub negate_tag($) {
+    my $tag = shift;
+    my $ctag = is_negated $tag;
+    if ($ctag eq "") {
+	# Was straight, invert it
+	return "!" . $tag;
+    } else {
+	# Was inverted, straighten it
+	return $ctag;
+    }
+}
+
+# Return false if anything in the stack evaluates to false, otherwise true
+sub evaltruth() {
+    for my $tag (@TAGSTACK) {
+	my $ctag = is_negated $tag;
+	if ($ctag eq "") {
+	    # Straight
+	    if (! $TAGS{$tag}) {
+		Debug "Stack is false because $tag is not defined";
+		return 0;
+	    }
+	} else {
+	    # Negated
+	    if ($TAGS{$ctag}) {
+		Debug "Stack is false because $ctag is defined and negated";
+		return 0;
+	    }
+	}
+    }
+    return 1;
+}
+
+############
+##  MAIN  ##
+############
+
+@TAGSTACK = ();
+%TAGS = ();
+$curtruth = 1;
+
+foreach $arg (@ARGV) {
+    Debug "Have arg $arg";
+    $TAGS{$arg} = 1;
+
+    if ($TAGS{$arg}) {
+	Debug "Set $arg";
+    } elsif (defined $TAGS{$arg}) {
+	Debug "Defined $arg";
+    } else {
+	Debug "Did not set $arg";
+    }
+}
+
+while (<STDIN>) {
+    $origline = $_;
+    chomp;
+    s/^\s*//;
+    s/\s*$//;
+    $reeval = 1;
+    if (/^\%if (\w+)$/) {
+	Debug "Found start for tag $1, adding to TAGSTACK";
+	push @TAGSTACK, $1;
+    } elsif (/^\%else\s+(\w.*)$/) {
+	Debug "Found else tag with comment \"$1\"";
+	# pop top tag and invert it
+#my $t = pop(@TAGSTACK);
+#Debug "Popped $t off the stack";
+#my $u = negate_tag($t);
+#Debug "Negated $t to $u";
+#push(@TAGSTACK, $u);
+
+	push(@TAGSTACK, negate_tag(pop(@TAGSTACK)));
+    } elsif (/^\%else$/) {
+	Debug "Found else tag";
+#my $t = pop(@TAGSTACK);
+#Debug "Popped $t off the stack";
+#my $u = negate_tag($t);
+#Debug "Negated $t to $u";
+#push(@TAGSTACK, $u);
+	push(@TAGSTACK, negate_tag(pop(@TAGSTACK)));
+    } elsif (/^\%end\s+(\w.*)\s*$/) {
+	my $tag = pop(@TAGSTACK);
+	Debug "Found end tag for $tag with comment \"$1\"";
+    } elsif (/^\%end$/) {
+	my $tag = pop(@TAGSTACK);
+	Debug "Found end tag for $tag";
+    } else {
+	$reeval = 0;
+    }
+    $curtruth = evaltruth if ($reeval);
+
+    if ($curtruth) {
+	print "$origline"
+    }
+}
