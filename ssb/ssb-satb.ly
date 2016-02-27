@@ -36,8 +36,7 @@ rall = \markup { \italic rall. }
 Timeline = {
   \numericTimeSignature
   \time 3/4
-  \tempo 4=68
-%  \tempo 4=50
+  \tempo 4=72
   \partial 4 s4 | s2. | s2. | s2. | \partial 2 s2 | \break
   \partial 4 s4 | s2. | s2. | s2. | \partial 2 s2 | \break
   \partial 4 s4 | s2. | s2. | s2. | \partial 2 s2 | \break
