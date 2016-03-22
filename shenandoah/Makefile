@@ -8,6 +8,7 @@
 
 SATB :=	shenandoah-satb.ly
 SATB_OUT := shenandoah-satb.pdf shenandoah-satb.mp3
+SATB_PIANO := shenandoah-satb-piano.pdf
 SOPRANO := shenandoah-soprano.mp3 shenandoah-soprano.pdf
 ALTO := shenandoah-alto.mp3 shenandoah-alto.pdf
 TENOR := shenandoah-tenor.mp3 shenandoah-tenor.pdf
@@ -18,6 +19,8 @@ all:	satb ttbb
 #	@mkdir -p tmp ttbb-out
 
 satb:	soprano alto tenor bass satb-out
+
+satb-piano: $(SATB_PIANO)
 
 soprano: $(SOPRANO)
 
@@ -38,6 +41,13 @@ $(SATB_OUT):	$(SATB) Makefile
 	( cd tmp && lilypond satb.ly && mv satb.pdf .. )
 	( cd tmp && timidity satb.mid -Ow -o satb.wav )
 	( cd tmp && lame -S -m m satb.wav --preset 20 ../satb.mp3 )
+
+$(SATB_PIANO):	$(SATB) Makefile
+	rm -f $(SATB_PIANO)
+	rm -rf tmp
+	mkdir tmp
+	lilypp soprano alto tenor bass piano chords < $(SATB) > tmp/satb-piano.ly
+	( cd tmp && lilypond satb-piano.ly  && mv satb-piano.pdf .. )
 
 $(SOPRANO):	$(SATB) Makefile
 	rm -f $(SOPRANO)

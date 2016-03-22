@@ -25,7 +25,7 @@ arranger = "Arrangement by David Niemi and Hal Jackson"
 \header {
   dedication = "In memory of James Erb (1926 - 2014)"
   title = "Shenandoah"
-  subtitle = "Traditional American Folk Song      (SATB)     v0.99e"
+  subtitle = "Traditional American Folk Song      (SATB)     v1.0"
   tagline = " "
 }
 
@@ -147,32 +147,32 @@ TimeLine = {
 
 theChords = \chordmode {
   %p1 m1 5
-  s2 s4 s4 | e1 | s1 | a1 |
-  e2. s4 | cis2.:m s4 | b8/dis a4.:/e s2 | e1 |
+  s2 s4 s4 | e1 | s1 | a2. b4 |
+  e2. s4 | cis2.:m s4 | fis8:m/a a4.: s2 | e1 |
 
   %p2 m9 13
-  s2. cis8:m b8 | a2:7+ s8 b8 b4:7 | e1 | e1 |
-  e1 | a2. b4/dis | e1 | cis1:m |
+  gis2.:m cis8:m dis8/b | a2:7+ s8 b8 b4:7 | e1 | e1 |
+  e1 | a2. b4:m | e1 | cis1:m |
 
   %p3 m17 21
-  a8 s4. ~ s4 s4 | e1 | gis2.:m/dis e4 | ais2:7.5- s8 fis8:7 b4:7 |
-  e1 | e4 b2./dis | cis8:m gis2/cis s8 e4/b | a2 s8 b4.:1.5.8 |
+  b8:7/a a4. s4 s4 | e1 | gis2.:m/dis e4 | ais2:7.5-/cis s8 fis8:7 b4:7 |
+  e1 | e2 b2/dis | cis2:m gis2/b |
 
-  %p4 m25 29
-  e2. s8 b/dis | cis4.:m s8 gis4:m s4 | a2. s8 b8:7 | e1 |
-  gis2.:m cis4:7m | ais2.:7.5- b4:7 | e2 s4 s4 | a1 |
+  %p4 m24 27
+  a2 s8 b4.:1.5.8 | e2. s8 b/dis | cis4.:m s8 gis4:m s4 |
+  a2. s8 b8:7 | e1 | gis2.:m cis4:7m | ais2.:7.5- b4:7 |
 
-  %p5 m33 37
-  e1 | fis2:m b2 | e1 | cis2:m/e cis4:m e4:maj7 |
-  gis1:m | fis1:m1 | b1 | e1 |
+  %p5 m31 36
+  e2 s4 s4 | a1 | e1 | fis2:m b2 | e1 |
+  cis2:m/e cis4:m e4:maj7 | gis1:m | fis1:m/cis | b1 |
 
-  %p6 m41 45
-  s1 | s1 | s1 | s2 s8 s4. |
-  s2. s4 | s1 | s1 | s1 |
+  %p6 m40 44
+  e1 | s1 | a1 | e1 |
+  cis2:m s8 s4. | dis4:7.5-/a a2 s4 | e1 |
 
-  %p7 m49 53
-  s2. s4 | s2 s4. s8 | s4. s8 a2 | s4. s8 cis2:m |
-  s4. s8 fis4:m7/a s4 | e1 | s1 ||
+  %p7 m47 51
+  gis1:m | cis4:m7 ais4.:7.5- fis8:7 b4:7 | e2 s2 | s2 s4. s8 |
+  e2 a2 | e2 cis2:m | e4./b s8 fis4:m7/a b:7 | e1 | s1 ||
 }
 
 SopranoMusic = \relative c'' {
@@ -283,7 +283,7 @@ TenorMusic = \relative c' {
   fis4 e2 r4 | r e8( fis) gis2 | dis'4 dis cis e,8 b' |
 
   %p7 m48 51
-  b4( cis) ~ cis8 a8 a4  | gis2  r4 b4^\mp | e4. b8 a4 gis4 |
+  b4( cis) ~ cis8 ais8 a4  | gis2  r4 b4^\mp | e4. b8 a4 gis4 |
   b4. b8 e,2 | b'4. b8 gis2 | gis4. gis8 fis4 a4 | b8 b8 b2. ~ | b1 |
 }
 
